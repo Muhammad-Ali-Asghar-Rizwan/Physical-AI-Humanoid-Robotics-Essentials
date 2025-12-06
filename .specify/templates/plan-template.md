@@ -31,7 +31,30 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+**Education & Clarity Validation:**
+- [ ] Content follows progressive complexity from beginner to advanced
+- [ ] Learning objectives clearly defined and measurable
+- [ ] Pedagogical approach supports student understanding
+
+**Technical Accuracy Validation:**
+- [ ] All technical content verified against current standards (ROS2, URDF, etc.)
+- [ ] AI/robotics implementations reflect current production practices
+- [ ] Concepts align with industry-recognized frameworks
+
+**Practical Outcomes Validation:**
+- [ ] Implementation includes reproducible hands-on examples
+- [ ] Code examples tested and validated for student execution
+- [ ] Clear inputs, outputs, architecture, and failure modes defined
+
+**Ethical Responsibility Validation:**
+- [ ] Safety considerations addressed throughout implementation
+- [ ] Ethical implications discussed appropriately
+- [ ] Responsible AI practices emphasized
+
+**Reproducibility Validation:**
+- [ ] All examples can be independently reproduced by readers
+- [ ] Source-traceable citations provided for all claims
+- [ ] No hallucinations or unverifiable technical claims
 
 ## Project Structure
 

@@ -44,101 +44,105 @@ description: "Task list template for feature implementation"
   ============================================================================
 -->
 
-## Phase 1: Setup (Shared Infrastructure)
+## Phase 1: Educational Infrastructure Setup
 
-**Purpose**: Project initialization and basic structure
+**Purpose**: Establish textbook project structure with educational focus
 
-- [ ] T001 Create project structure per implementation plan
-- [ ] T002 Initialize [language] project with [framework] dependencies
-- [ ] T003 [P] Configure linting and formatting tools
-
----
-
-## Phase 2: Foundational (Blocking Prerequisites)
-
-**Purpose**: Core infrastructure that MUST be complete before ANY user story can be implemented
-
-**⚠️ CRITICAL**: No user story work can begin until this phase is complete
-
-Examples of foundational tasks (adjust based on your project):
-
-- [ ] T004 Setup database schema and migrations framework
-- [ ] T005 [P] Implement authentication/authorization framework
-- [ ] T006 [P] Setup API routing and middleware structure
-- [ ] T007 Create base models/entities that all stories depend on
-- [ ] T008 Configure error handling and logging infrastructure
-- [ ] T009 Setup environment configuration management
-
-**Checkpoint**: Foundation ready - user story implementation can now begin in parallel
+- [ ] T001 Create textbook project structure per implementation plan
+- [ ] T002 Initialize Docusaurus project with GitHub Pages deployment configuration
+- [ ] T003 [P] Configure educational content linting and formatting tools
+- [ ] T004 Set up documentation structure following specification-driven approach
 
 ---
 
-## Phase 3: User Story 1 - [Title] (Priority: P1) 🎯 MVP
+## Phase 2: Educational Foundation (Blocking Prerequisites)
 
-**Goal**: [Brief description of what this story delivers]
+**Purpose**: Core educational infrastructure that MUST be complete before ANY chapter can be developed
 
-**Independent Test**: [How to verify this story works on its own]
+**⚠️ CRITICAL**: No chapter work can begin until this phase is complete
 
-### Tests for User Story 1 (OPTIONAL - only if tests requested) ⚠️
+Examples of foundational tasks (adjust based on your textbook project):
 
-> **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
+- [ ] T005 [P] Establish content specification template for textbook chapters
+- [ ] T006 [P] Set up Docusaurus documentation infrastructure with proper navigation
+- [ ] T007 Create educational content models (objectives, examples, exercises) that all chapters depend on
+- [ ] T008 Configure content quality standards and verification processes
+- [ ] T009 Set up GitHub Pages deployment pipeline with build validation
+- [ ] T010 Establish technical accuracy verification process for AI/robotics content
 
-- [ ] T010 [P] [US1] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T011 [P] [US1] Integration test for [user journey] in tests/integration/test_[name].py
-
-### Implementation for User Story 1
-
-- [ ] T012 [P] [US1] Create [Entity1] model in src/models/[entity1].py
-- [ ] T013 [P] [US1] Create [Entity2] model in src/models/[entity2].py
-- [ ] T014 [US1] Implement [Service] in src/services/[service].py (depends on T012, T013)
-- [ ] T015 [US1] Implement [endpoint/feature] in src/[location]/[file].py
-- [ ] T016 [US1] Add validation and error handling
-- [ ] T017 [US1] Add logging for user story 1 operations
-
-**Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
+**Checkpoint**: Educational foundation ready - chapter implementation can now begin in parallel
 
 ---
 
-## Phase 4: User Story 2 - [Title] (Priority: P2)
+## Phase 3: Chapter 1 - [Title] (Priority: P1) 🎯 MVP
 
-**Goal**: [Brief description of what this story delivers]
+**Goal**: [Brief description of what this chapter teaches and implements]
 
-**Independent Test**: [How to verify this story works on its own]
+**Independent Test**: [How to verify this chapter works as a standalone learning unit]
 
-### Tests for User Story 2 (OPTIONAL - only if tests requested) ⚠️
+### Validation Tests for Chapter 1 (REQUIRED for educational content) ⚠️
 
-- [ ] T018 [P] [US2] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T019 [P] [US2] Integration test for [user journey] in tests/integration/test_[name].py
+> **NOTE: Write these tests FIRST to verify content accuracy and reproducibility**
 
-### Implementation for User Story 2
+- [ ] T011 [P] [CH1] Technical accuracy verification for [topic] in specs/[chapter-name]/validation/
+- [ ] T012 [P] [CH1] Code example execution test for [implementation] in docs/chapters/[chapter-name]/examples/
+- [ ] T013 [P] [CH1] Exercise validation to confirm [learning objective] in docs/chapters/[chapter-name]/exercises/
 
-- [ ] T020 [P] [US2] Create [Entity] model in src/models/[entity].py
-- [ ] T021 [US2] Implement [Service] in src/services/[service].py
-- [ ] T022 [US2] Implement [endpoint/feature] in src/[location]/[file].py
-- [ ] T023 [US2] Integrate with User Story 1 components (if needed)
+### Implementation for Chapter 1
 
-**Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
+- [ ] T014 [P] [CH1] Create chapter specification in specs/[chapter-name]/spec.md
+- [ ] T015 [P] [CH1] Develop learning objectives and prerequisites in docs/chapters/[chapter-name]/objectives.md
+- [ ] T016 [CH1] Write core content with technical accuracy verification in docs/chapters/[chapter-name]/content.md
+- [ ] T017 [CH1] Implement reproducible code examples with ROS2/URDF alignment in docs/chapters/[chapter-name]/examples/
+- [ ] T018 [CH1] Add ethical considerations and safety notes in docs/chapters/[chapter-name]/safety.md
+- [ ] T019 [CH1] Create final chapter exercise validating student understanding
+
+**Checkpoint**: At this point, Chapter 1 should be fully educational and testable independently
 
 ---
 
-## Phase 5: User Story 3 - [Title] (Priority: P3)
+## Phase 4: Chapter 2 - [Title] (Priority: P2)
 
-**Goal**: [Brief description of what this story delivers]
+**Goal**: [Brief description of what this chapter teaches and implements]
 
-**Independent Test**: [How to verify this story works on its own]
+**Independent Test**: [How to verify this chapter works as a standalone learning unit]
 
-### Tests for User Story 3 (OPTIONAL - only if tests requested) ⚠️
+### Validation Tests for Chapter 2 (REQUIRED for educational content) ⚠️
 
-- [ ] T024 [P] [US3] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T025 [P] [US3] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T020 [P] [CH2] Technical accuracy verification for [topic] in specs/[chapter-name]/validation/
+- [ ] T021 [P] [CH2] Code example execution test for [implementation] in docs/chapters/[chapter-name]/examples/
 
-### Implementation for User Story 3
+### Implementation for Chapter 2
 
-- [ ] T026 [P] [US3] Create [Entity] model in src/models/[entity].py
-- [ ] T027 [US3] Implement [Service] in src/services/[service].py
-- [ ] T028 [US3] Implement [endpoint/feature] in src/[location]/[file].py
+- [ ] T022 [P] [CH2] Create chapter specification in specs/[chapter-name]/spec.md
+- [ ] T023 [CH2] Develop learning objectives and prerequisites in docs/chapters/[chapter-name]/objectives.md
+- [ ] T024 [CH2] Write core content with technical accuracy verification in docs/chapters/[chapter-name]/content.md
+- [ ] T025 [CH2] Implement reproducible code examples with ROS2/URDF alignment in docs/chapters/[chapter-name]/examples/
+- [ ] T026 [CH2] Integrate with Chapter 1 concepts (if needed for progressive learning)
 
-**Checkpoint**: All user stories should now be independently functional
+**Checkpoint**: At this point, Chapters 1 AND 2 should both work as independent learning units
+
+---
+
+## Phase 5: Chapter 3 - [Title] (Priority: P3)
+
+**Goal**: [Brief description of what this chapter teaches and implements]
+
+**Independent Test**: [How to verify this chapter works as a standalone learning unit]
+
+### Validation Tests for Chapter 3 (REQUIRED for educational content) ⚠️
+
+- [ ] T027 [P] [CH3] Technical accuracy verification for [topic] in specs/[chapter-name]/validation/
+- [ ] T028 [P] [CH3] Code example execution test for [implementation] in docs/chapters/[chapter-name]/examples/
+
+### Implementation for Chapter 3
+
+- [ ] T029 [P] [CH3] Create chapter specification in specs/[chapter-name]/spec.md
+- [ ] T030 [CH3] Develop learning objectives and prerequisites in docs/chapters/[chapter-name]/objectives.md
+- [ ] T031 [CH3] Write core content with technical accuracy verification in docs/chapters/[chapter-name]/content.md
+- [ ] T032 [CH3] Implement reproducible code examples with ROS2/URDF alignment in docs/chapters/[chapter-name]/examples/
+
+**Checkpoint**: All chapters should now be independently educational and functional
 
 ---
 
@@ -146,16 +150,16 @@ Examples of foundational tasks (adjust based on your project):
 
 ---
 
-## Phase N: Polish & Cross-Cutting Concerns
+## Phase N: Educational Polish & Cross-Cutting Concerns
 
-**Purpose**: Improvements that affect multiple user stories
+**Purpose**: Improvements that affect multiple chapters
 
-- [ ] TXXX [P] Documentation updates in docs/
-- [ ] TXXX Code cleanup and refactoring
-- [ ] TXXX Performance optimization across all stories
-- [ ] TXXX [P] Additional unit tests (if requested) in tests/unit/
-- [ ] TXXX Security hardening
-- [ ] TXXX Run quickstart.md validation
+- [ ] TXXX [P] Educational content review and alignment across all chapters
+- [ ] TXXX Technical accuracy verification across all chapters
+- [ ] TXXX Consistency of pedagogical approach across all chapters
+- [ ] TXXX [P] Accessibility improvements (alt-text, navigation) across all content
+- [ ] TXXX Ethical considerations and safety notes review across all chapters
+- [ ] TXXX Run textbook build validation to ensure GitHub Pages deployment works
 
 ---
 
@@ -163,89 +167,89 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Phase Dependencies
 
-- **Setup (Phase 1)**: No dependencies - can start immediately
-- **Foundational (Phase 2)**: Depends on Setup completion - BLOCKS all user stories
-- **User Stories (Phase 3+)**: All depend on Foundational phase completion
-  - User stories can then proceed in parallel (if staffed)
+- **Educational Infrastructure Setup (Phase 1)**: No dependencies - can start immediately
+- **Educational Foundation (Phase 2)**: Depends on Setup completion - BLOCKS all chapters
+- **Chapters (Phase 3+)**: All depend on Educational Foundation phase completion
+  - Chapters can then proceed in parallel (if staffed)
   - Or sequentially in priority order (P1 → P2 → P3)
-- **Polish (Final Phase)**: Depends on all desired user stories being complete
+- **Educational Polish (Final Phase)**: Depends on all desired chapters being complete
 
-### User Story Dependencies
+### Chapter Dependencies
 
-- **User Story 1 (P1)**: Can start after Foundational (Phase 2) - No dependencies on other stories
-- **User Story 2 (P2)**: Can start after Foundational (Phase 2) - May integrate with US1 but should be independently testable
-- **User Story 3 (P3)**: Can start after Foundational (Phase 2) - May integrate with US1/US2 but should be independently testable
+- **Chapter 1 (P1)**: Can start after Educational Foundation (Phase 2) - No dependencies on other chapters
+- **Chapter 2 (P2)**: Can start after Educational Foundation (Phase 2) - May build on concepts from Chapter 1 but should be independently learnable
+- **Chapter 3 (P3)**: Can start after Educational Foundation (Phase 2) - May build on concepts from prior chapters but should be independently learnable
 
-### Within Each User Story
+### Within Each Chapter
 
-- Tests (if included) MUST be written and FAIL before implementation
-- Models before services
-- Services before endpoints
-- Core implementation before integration
-- Story complete before moving to next priority
+- Validation tests MUST be written and verified before implementation
+- Learning objectives before content
+- Content with technical accuracy verification before examples
+- Core concepts before advanced implementations
+- Chapter complete with exercises before moving to next priority
 
 ### Parallel Opportunities
 
 - All Setup tasks marked [P] can run in parallel
-- All Foundational tasks marked [P] can run in parallel (within Phase 2)
-- Once Foundational phase completes, all user stories can start in parallel (if team capacity allows)
-- All tests for a user story marked [P] can run in parallel
-- Models within a story marked [P] can run in parallel
-- Different user stories can be worked on in parallel by different team members
+- All Educational Foundation tasks marked [P] can run in parallel (within Phase 2)
+- Once Educational Foundation phase completes, all chapters can start in parallel (if team capacity allows)
+- All validation tests for a chapter marked [P] can run in parallel
+- Content components within a chapter marked [P] can run in parallel
+- Different chapters can be worked on in parallel by different team members
 
 ---
 
-## Parallel Example: User Story 1
+## Parallel Example: Chapter 1
 
 ```bash
-# Launch all tests for User Story 1 together (if tests requested):
-Task: "Contract test for [endpoint] in tests/contract/test_[name].py"
-Task: "Integration test for [user journey] in tests/integration/test_[name].py"
+# Launch all validation for Chapter 1 together:
+Task: "Technical accuracy verification for [topic] in specs/[chapter-name]/validation/"
+Task: "Code example execution test for [implementation] in docs/chapters/[chapter-name]/examples/"
 
-# Launch all models for User Story 1 together:
-Task: "Create [Entity1] model in src/models/[entity1].py"
-Task: "Create [Entity2] model in src/models/[entity2].py"
+# Launch all content components for Chapter 1 together:
+Task: "Create chapter specification in specs/[chapter-name]/spec.md"
+Task: "Develop learning objectives and prerequisites in docs/chapters/[chapter-name]/objectives.md"
 ```
 
 ---
 
 ## Implementation Strategy
 
-### MVP First (User Story 1 Only)
+### MVP First (Chapter 1 Only)
 
-1. Complete Phase 1: Setup
-2. Complete Phase 2: Foundational (CRITICAL - blocks all stories)
-3. Complete Phase 3: User Story 1
-4. **STOP and VALIDATE**: Test User Story 1 independently
+1. Complete Phase 1: Educational Infrastructure Setup
+2. Complete Phase 2: Educational Foundation (CRITICAL - blocks all chapters)
+3. Complete Phase 3: Chapter 1
+4. **STOP and VALIDATE**: Test Chapter 1 as independent learning unit
 5. Deploy/demo if ready
 
 ### Incremental Delivery
 
-1. Complete Setup + Foundational → Foundation ready
-2. Add User Story 1 → Test independently → Deploy/Demo (MVP!)
-3. Add User Story 2 → Test independently → Deploy/Demo
-4. Add User Story 3 → Test independently → Deploy/Demo
-5. Each story adds value without breaking previous stories
+1. Complete Setup + Educational Foundation → Foundation ready
+2. Add Chapter 1 → Validate independently → Deploy/Demo (MVP!)
+3. Add Chapter 2 → Validate independently → Deploy/Demo
+4. Add Chapter 3 → Validate independently → Deploy/Demo
+5. Each chapter adds value without breaking previous chapters
 
 ### Parallel Team Strategy
 
 With multiple developers:
 
-1. Team completes Setup + Foundational together
-2. Once Foundational is done:
-   - Developer A: User Story 1
-   - Developer B: User Story 2
-   - Developer C: User Story 3
-3. Stories complete and integrate independently
+1. Team completes Educational Infrastructure Setup + Foundation together
+2. Once Educational Foundation is done:
+   - Developer A: Chapter 1
+   - Developer B: Chapter 2
+   - Developer C: Chapter 3
+3. Chapters complete and maintain educational independence
 
 ---
 
 ## Notes
 
 - [P] tasks = different files, no dependencies
-- [Story] label maps task to specific user story for traceability
-- Each user story should be independently completable and testable
-- Verify tests fail before implementing
+- [CH#] label maps task to specific chapter for traceability
+- Each chapter should be independently learnable and validateable
+- Verify validation tests pass for technical accuracy and reproducibility
 - Commit after each task or logical group
-- Stop at any checkpoint to validate story independently
-- Avoid: vague tasks, same file conflicts, cross-story dependencies that break independence
+- Stop at any checkpoint to validate chapter independently as a learning unit
+- Avoid: vague tasks, same file conflicts, cross-chapter dependencies that break independent learning

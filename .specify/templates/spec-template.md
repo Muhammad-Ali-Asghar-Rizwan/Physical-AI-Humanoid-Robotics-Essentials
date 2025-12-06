@@ -84,16 +84,16 @@
 
 ### Functional Requirements
 
-- **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
-- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]  
-- **FR-003**: Users MUST be able to [key interaction, e.g., "reset their password"]
-- **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
-- **FR-005**: System MUST [behavior, e.g., "log all security events"]
+- **FR-001**: Content MUST follow educational progression from beginner to advanced concepts
+- **FR-002**: Content MUST demonstrate technical accuracy with ROS2, URDF, and real control systems
+- **FR-003**: Content MUST include reproducible hands-on examples and practical implementations
+- **FR-004**: Content MUST address ethical considerations and responsible AI practices
+- **FR-005**: Content MUST provide clear learning objectives, implementation steps, and final exercises
 
 *Example of marking unclear requirements:*
 
-- **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
-- **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
+- **FR-006**: Code examples MUST align with [NEEDS CLARIFICATION: specific framework or technology requirements]
+- **FR-007**: Content depth MUST reach [NEEDS CLARIFICATION: specific word count or chapter length requirements]
 
 ### Key Entities *(include if feature involves data)*
 
@@ -109,7 +109,9 @@
 
 ### Measurable Outcomes
 
-- **SC-001**: [Measurable metric, e.g., "Users can complete account creation in under 2 minutes"]
-- **SC-002**: [Measurable metric, e.g., "System handles 1000 concurrent users without degradation"]
-- **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
-- **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
+- **SC-001**: Student can follow and produce a working robotics or AI system following textbook guidance
+- **SC-002**: Book deploys to GitHub Pages with no build errors
+- **SC-003**: All code examples reproduce successfully without hallucinations
+- **SC-004**: Content spans 20,000-35,000 words of original, source-traceable material
+- **SC-005**: At least one working demonstration (simulation acceptable) is included
+- **SC-006**: All images/figures include appropriate alt text for accessibility
