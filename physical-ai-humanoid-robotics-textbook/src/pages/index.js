@@ -18,12 +18,12 @@ const HomepageHeader = () => {
             <div className={styles.buttons}>
               <Link
                 className="button button--secondary button--lg"
-                to="/docs/intro">
+                to="/docs/module-1-ros2-nervous-system">
                 Start Learning
               </Link>
               <Link
                 className="button button--primary button--lg"
-                to="/docs/intro">
+                to="/docs/module-1-ros2-nervous-system">
                 View Modules
               </Link>
             </div>
