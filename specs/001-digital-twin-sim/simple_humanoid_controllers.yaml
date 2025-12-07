@@ -1,0 +1,83 @@
+# Joint State Controller
+simple_humanoid_joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
+
+# Position Controllers
+simple_humanoid_position_controller:
+  type: position_controllers/JointGroupPositionController
+  joints:
+    - torso_to_head
+    
+    # Left arm
+    - torso_to_left_upper_arm
+    - left_upper_arm_to_lower_arm
+    
+    # Right arm
+    - torso_to_right_upper_arm
+    - right_upper_arm_to_lower_arm
+    
+    # Left leg
+    - torso_to_left_upper_leg
+    - left_upper_leg_to_lower_leg
+    
+    # Right leg
+    - torso_to_right_upper_leg
+    - right_upper_leg_to_lower_leg
+
+# PID gains for the position controllers
+gains:
+  # Head
+  torso_to_head:
+    p: 100
+    d: 1
+    i: 1
+    i_clamp: 1
+
+  # Left arm
+  torso_to_left_upper_arm:
+    p: 100
+    d: 1
+    i: 1
+    i_clamp: 1
+  left_upper_arm_to_lower_arm:
+    p: 100
+    d: 1
+    i: 1
+    i_clamp: 1
+
+  # Right arm
+  torso_to_right_upper_arm:
+    p: 100
+    d: 1
+    i: 1
+    i_clamp: 1
+  right_upper_arm_to_lower_arm:
+    p: 100
+    d: 1
+    i: 1
+    i_clamp: 1
+
+  # Left leg
+  torso_to_left_upper_leg:
+    p: 1000
+    d: 1
+    i: 1
+    i_clamp: 1
+  left_upper_leg_to_lower_leg:
+    p: 1000
+    d: 1
+    i: 1
+    i_clamp: 1
+
+  # Right leg
+  torso_to_right_upper_leg:
+    p: 1000
+    d: 1
+    i: 1
+    i_clamp: 1
+  right_upper_leg_to_lower_leg:
+    p: 1000
+    d: 1
+    i: 1
+    i_clamp: 1
