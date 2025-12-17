@@ -7,7 +7,7 @@ import styles from './HomepageFeatures.module.css';
 const FeatureList = [
   {
     title: 'Physical AI Fundamentals',
-    Svg: require('../../static/img/ai-brain.svg').default,
+    Svg: require('../../static/img/robot.jpg').default,
     description: (
       <>
         Explore the foundations of Physical AI, where artificial intelligence meets the physical world. 
