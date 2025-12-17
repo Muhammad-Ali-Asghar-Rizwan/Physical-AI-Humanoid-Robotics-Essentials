@@ -1,36 +1,155 @@
-# Physical AI & Humanoid Robotics Textbook
+# RAG Chatbot for Physical AI & Humanoid Robotics Textbook
 
-This repository contains the source code and content for the Physical AI & Humanoid Robotics textbook project. This educational resource covers the fundamentals of robotics, AI, and their intersection in humanoid systems.
+This project implements a Retrieval-Augmented Generation (RAG) chatbot that allows students to query the Physical AI & Humanoid Robotics textbook content.
 
-## Project Structure
+## Architecture
 
-- `.specify/` - Specification and planning tools
-- `specs/` - Feature specifications and plans
-- `history/` - Prompt History Records
-- `physical-ai-humanoid-robotics-textbook/` - Main textbook project with Docusaurus frontend
+The project is divided into two main components:
 
-## Modules
+### Backend (Railway Deployable)
+- Built with FastAPI in Python
+- Handles RAG pipeline, embeddings, and vector storage
+- Connects to Qdrant Cloud for vector search
+- Stores chat history in Neon Postgres
+- Uses OpenAI and Cohere APIs for generation and embeddings
 
-### Module 1: The Robotic Nervous System (ROS 2)
-- Introduction to ROS 2 architecture
-- Environment setup and configuration
-- Node communication patterns
-- URDF modeling
-- Launch files and orchestration
-- Practical lab exercises
+### Frontend (Docusaurus Integration)
+- React-based chat widget
+- Embeds directly into Docusaurus textbook pages
+- Supports text selection for focused Q&A
+- Stores chat history in browser local storage
 
-## Getting Started
+## Folder Structure
 
-To run the textbook locally:
+```
+my_project/
+├─ backend/                # Railway deployable backend
+│  ├─ src/
+│  │  ├─ api/
+│  │  │  ├─ main.py        # FastAPI entrypoint
+│  │  │  └─ endpoints/     # API endpoints
+│  │  ├─ models/           # Pydantic models
+│  │  ├─ services/         # Business logic
+│  │  ├─ utils/            # Utility functions
+│  │  └─ scripts/          # Utility scripts
+│  ├─ requirements.txt     # Python dependencies
+├─ frontend/               # Docusaurus integration files
+│  ├─ src/
+│  │  ├─ components/      # React components
+│  │  └─ services/        # Frontend services
+│  └─ package.json         # JavaScript dependencies
+├─ .env                    # DO NOT TOUCH
+└─ README.md
+```
 
-1. Navigate to the textbook directory: `cd physical-ai-humanoid-robotics-textbook`
-2. Install dependencies: `npm install`
-3. Start the development server: `npm run start`
+## Setup
+
+### Backend Setup
+
+1. Install Python dependencies:
+```bash
+cd backend
+pip install -r requirements.txt
+```
+
+2. Set up environment variables in `.env` file:
+```
+OPENAI_API_KEY=your_openai_api_key
+COHERE_API_KEY=your_cohere_api_key
+QDRANT_API_KEY=your_qdrant_api_key
+QDRANT_URL=your_qdrant_cluster_url
+DATABASE_URL=your_neon_postgres_connection_string
+```
+
+3. Run the backend server:
+```bash
+cd backend
+uvicorn src.api.main:app --reload
+```
+
+### Textbook Ingestion
+
+Before the chatbot can answer questions, you need to ingest the textbook content:
+
+```bash
+cd backend
+python -m src.scripts.chunk_textbook --source /path/to/textbook/mdx/files
+```
+
+This will:
+- Read all MD/MDX files from the specified directory
+- Chunk the content (500-1000 tokens per chunk)
+- Generate embeddings using Cohere
+- Store embeddings in Qdrant with metadata
+
+### Frontend Setup
+
+1. Install JavaScript dependencies:
+```bash
+cd frontend
+npm install
+```
+
+2. Run the frontend:
+```bash
+npm start
+```
+
+## API Endpoints
+
+The backend exposes the following endpoints:
+
+- `POST /api/query` - Process user queries and return responses
+- `GET /api/history` - Retrieve chat history for a session
+- `POST /api/feedback` - Submit feedback on a response
+- `GET /health` - Health check endpoint
+
+## Features
+
+- **Textbook Querying**: Ask questions about the Physical AI & Humanoid Robotics textbook
+- **Text Selection**: Select text in the document and ask specific questions about it
+- **Source Citations**: Responses include references to textbook chapters/sections
+- **Chat History**: Conversation history stored in browser local storage
+- **Anonymous Usage**: No login required for basic functionality
+- **Feedback System**: Rate responses to help improve the system
+
+## Integration with Docusaurus
+
+To integrate the chatbot with your Docusaurus site:
+
+1. Copy the `ChatbotWidget.jsx` and `ChatbotWidget.css` files to your Docusaurus project's `src/components` directory.
+2. Use the component in your pages or layouts:
+```jsx
+import ChatbotWidget from '@site/src/components/ChatbotWidget';
+
+// Use it in your layout or MDX pages
+<ChatbotWidget />
+```
+
+3. See `frontend/src/components/integration-guide.md` for detailed instructions.
+
+## Deployment
+
+### Backend (to Railway)
+
+1. Create a new Railway project
+2. Connect to your backend repository
+3. Add environment variables in Railway dashboard
+4. Deploy the project
+
+### Frontend (to Vercel/GitHub Pages)
+
+1. Build the frontend: `npm run build`
+2. Deploy to your preferred static hosting provider
+3. Update the API base URL in the frontend to point to your Railway backend
 
 ## Contributing
 
-This project uses a specification-driven development approach. All changes should follow the established workflow using the `/sp.*` commands to ensure proper documentation and tracking.
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License.

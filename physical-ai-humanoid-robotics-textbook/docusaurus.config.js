@@ -114,7 +114,12 @@ const config = {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
       },
+        // Add custom fields here so they are present on the exported config
+        customFields: {
+          backendApiUrl: 'http://localhost:8000',
+        },
     }),
 };
 
-export default config;
+    // Export the config for Docusaurus (CommonJS)
+    module.exports = config;

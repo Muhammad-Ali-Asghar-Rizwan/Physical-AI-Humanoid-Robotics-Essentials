@@ -1,0 +1,267 @@
+# API Contract: Complete RAG chatbot system for Physical AI textbook
+
+## OpenAPI Specification
+
+```yaml
+openapi: 3.0.0
+info:
+  title: RAG Chatbot API
+  description: API for the RAG chatbot system for Physical AI textbook
+  version: 1.0.0
+servers:
+  - url: https://api.rag-chatbot.example.com
+    description: Production server
+  - url: https://staging.api.rag-chatbot.example.com
+    description: Staging server
+
+paths:
+  /chat:
+    post:
+      summary: Process a user query and return a response
+      description: Takes a user query and returns a response based on textbook content using RAG
+      operationId: processQuery
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - apiKey: []
+
+  /history/{session_id}:
+    get:
+      summary: Retrieve chat history for a session
+      description: Returns the conversation history for a specific session
+      operationId: getChatHistory
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          description: Unique identifier for the chat session
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful response with chat history
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatHistoryResponse'
+        '404':
+          description: Session not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - apiKey: []
+
+  /health:
+    get:
+      summary: Health check endpoint
+      description: Returns the health status of the API
+      operationId: getHealth
+      responses:
+        '200':
+          description: API is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+
+components:
+  schemas:
+    ChatRequest:
+      type: object
+      required:
+        - query
+        - session_id
+      properties:
+        query:
+          type: string
+          description: The user's query
+          example: "What are the key principles of physical AI?"
+        session_id:
+          type: string
+          format: uuid
+          description: The session identifier
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        selected_text:
+          type: string
+          description: Optional text selected by the user on the page
+          example: "Physical AI combines robotics and artificial intelligence to create systems that interact with the physical world."
+        context:
+          type: array
+          description: Previous conversation context
+          items:
+            $ref: '#/components/schemas/MessageContext'
+
+    MessageContext:
+      type: object
+      properties:
+        sender:
+          type: string
+          enum: [user, ai]
+          description: Who sent the message
+        content:
+          type: string
+          description: The message content
+        timestamp:
+          type: string
+          format: date-time
+          description: When the message was sent
+
+    ChatResponse:
+      type: object
+      required:
+        - response
+        - session_id
+        - sources
+        - confidence
+      properties:
+        response:
+          type: string
+          description: The AI-generated response
+          example: "Physical AI combines robotics and artificial intelligence to create systems that interact with the physical world..."
+        session_id:
+          type: string
+          format: uuid
+          description: The session identifier
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        sources:
+          type: array
+          description: Citations to textbook sections used in the response
+          items:
+            $ref: '#/components/schemas/SourceCitation'
+        confidence:
+          type: number
+          format: float
+          minimum: 0.0
+          maximum: 1.0
+          description: Confidence score of the response
+          example: 0.95
+
+    SourceCitation:
+      type: object
+      properties:
+        document_path:
+          type: string
+          description: Path to the source document in the textbook
+          example: "/docs/chapter-3/introduction-to-physical-ai.md"
+        section:
+          type: string
+          description: Section title or heading where the information was found
+          example: "Introduction to Physical AI"
+        content_snippet:
+          type: string
+          description: Brief snippet of the content used
+          example: "Physical AI combines robotics and artificial intelligence to create systems that interact with the physical world."
+
+    ChatHistoryResponse:
+      type: object
+      required:
+        - session_id
+        - messages
+      properties:
+        session_id:
+          type: string
+          format: uuid
+          description: The session identifier
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        messages:
+          type: array
+          description: List of messages in the conversation
+          items:
+            $ref: '#/components/schemas/HistoryMessage'
+
+    HistoryMessage:
+      type: object
+      required:
+        - message_id
+        - sender_type
+        - content
+        - timestamp
+      properties:
+        message_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the message
+          example: "550e8400-e29b-41d4-a716-446655440001"
+        sender_type:
+          type: string
+          enum: [USER, AI]
+          description: Who sent the message
+        content:
+          type: string
+          description: The message content
+        timestamp:
+          type: string
+          format: date-time
+          description: When the message was sent
+
+    HealthResponse:
+      type: object
+      required:
+        - status
+        - timestamp
+      properties:
+        status:
+          type: string
+          enum: [healthy, degraded, unavailable]
+          description: Current health status
+          example: "healthy"
+        timestamp:
+          type: string
+          format: date-time
+          description: When the health check was performed
+          example: "2025-12-09T10:00:00Z"
+
+    ErrorResponse:
+      type: object
+      required:
+        - error
+        - message
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: "QUERY_PROCESSING_ERROR"
+        message:
+          type: string
+          description: Human-readable error message
+          example: "Failed to process query due to an internal error"
+
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API key for authentication
+```

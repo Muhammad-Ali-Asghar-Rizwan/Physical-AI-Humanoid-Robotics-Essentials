@@ -1,0 +1,305 @@
+openapi: 3.0.3
+info:
+  title: RAG Chatbot API
+  description: API for the Retrieval-Augmented Generation Chatbot integrated with Physical AI & Humanoid Robotics Textbook
+  version: 1.0.0
+  contact:
+    name: Development Team
+    email: dev@example.com
+
+servers:
+  - url: https://api.example.com/v1
+    description: Production server
+  - url: http://localhost:8000
+    description: Development server
+
+paths:
+  /query:
+    post:
+      summary: Process user query and return response
+      description: Accepts user question with optional selected text, retrieves relevant content, and generates a response
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+      responses:
+        '200':
+          description: Successfully processed query and generated response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+        '400':
+          description: Invalid request parameters
+        '500':
+          description: Internal server error
+      security:
+        - api_key: []
+
+  /history:
+    get:
+      summary: Retrieve chat history
+      description: Get previous chat sessions for a user or session
+      parameters:
+        - name: session_id
+          in: query
+          required: true
+          description: Unique identifier for the chat session
+          schema:
+            type: string
+            format: uuid
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of conversations to return
+          schema:
+            type: integer
+            default: 10
+            minimum: 1
+            maximum: 100
+        - name: offset
+          in: query
+          required: false
+          description: Number of conversations to skip
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+      responses:
+        '200':
+          description: Successfully retrieved chat history
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoryResponse'
+        '400':
+          description: Invalid request parameters
+        '401':
+          description: Unauthorized access
+        '500':
+          description: Internal server error
+      security:
+        - api_key: []
+
+  /feedback:
+    post:
+      summary: Submit feedback on a response
+      description: Store user feedback on the quality of a generated response
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeedbackRequest'
+      responses:
+        '200':
+          description: Successfully recorded feedback
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackResponse'
+        '400':
+          description: Invalid request parameters
+        '500':
+          description: Internal server error
+      security:
+        - api_key: []
+
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+
+  schemas:
+    QueryRequest:
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          description: The user's question or query
+          example: "Explain the principle of inverse kinematics in humanoid robots"
+        selected_text:
+          type: string
+          description: Optional text selected by the user for focused Q&A
+          example: "Inverse kinematics is the mathematical process of calculating the variable joint parameters needed to place the end of a kinematic chain"
+        session_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the chat session
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        user_id:
+          type: string
+          format: uuid
+          description: Optional identifier for registered users
+          example: "123e4567-e89b-12d3-a456-426614174000"
+
+    QueryResponse:
+      type: object
+      required:
+        - response
+        - sources
+        - query_id
+      properties:
+        response:
+          type: string
+          description: The generated response to the user's query
+          example: "Inverse kinematics in humanoid robots refers to the mathematical process of calculating the joint angles required to position the end effector (like a hand) at a specific location..."
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/SourceReference'
+          description: List of sources used in generating the response
+        query_id:
+          type: string
+          format: uuid
+          description: Unique identifier for this query
+          example: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+        confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Confidence score of the response
+          example: 0.85
+
+    SourceReference:
+      type: object
+      required:
+        - document_title
+        - chapter
+        - section
+        - page_reference
+        - excerpt
+        - similarity_score
+      properties:
+        document_title:
+          type: string
+          description: Title of the referenced document
+          example: "Physical AI & Humanoid Robotics Textbook"
+        chapter:
+          type: string
+          description: Chapter name or number
+          example: "Chapter 3"
+        section:
+          type: string
+          description: Section name or number
+          example: "3.2 Inverse Kinematics"
+        page_reference:
+          type: string
+          description: Page number reference
+          example: "p. 45"
+        filename:
+          type: string
+          description: Source filename
+          example: "ch3_kinematics.mdx"
+        excerpt:
+          type: string
+          description: Excerpt from the referenced content
+          example: "Inverse kinematics is the mathematical process of calculating the variable joint parameters needed to place the end of a kinematic chain"
+        similarity_score:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Similarity score of this reference to the query
+          example: 0.92
+
+    HistoryResponse:
+      type: object
+      required:
+        - conversations
+        - total_count
+      properties:
+        conversations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Conversation'
+          description: List of conversation records
+        total_count:
+          type: integer
+          description: Total number of conversations available
+          example: 25
+        offset:
+          type: integer
+          description: Number of conversations skipped
+          example: 0
+        limit:
+          type: integer
+          description: Maximum number of conversations returned
+          example: 10
+
+    Conversation:
+      type: object
+      required:
+        - id
+        - timestamp
+        - query
+        - response
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for this conversation
+          example: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+        timestamp:
+          type: string
+          format: date-time
+          description: When the conversation occurred
+          example: "2023-10-20T10:30:00Z"
+        query:
+          type: string
+          description: The user's original query
+          example: "Explain the principle of inverse kinematics in humanoid robots"
+        response:
+          type: string
+          description: The AI-generated response
+          example: "Inverse kinematics in humanoid robots refers to the mathematical process of calculating the joint angles required to position the end effector..."
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/SourceReference'
+          description: Sources referenced in the response
+
+    FeedbackRequest:
+      type: object
+      required:
+        - query_id
+        - feedback_score
+      properties:
+        query_id:
+          type: string
+          format: uuid
+          description: The ID of the query being rated
+          example: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+        feedback_score:
+          type: integer
+          minimum: 1
+          maximum: 5
+          description: User rating of the response quality (1-5)
+          example: 4
+        feedback_comment:
+          type: string
+          description: Optional detailed feedback from the user
+          example: "The response was accurate but could include more examples."
+
+    FeedbackResponse:
+      type: object
+      required:
+        - status
+        - message
+      properties:
+        status:
+          type: string
+          enum: [success, error]
+          description: Status of the feedback submission
+          example: "success"
+        message:
+          type: string
+          description: Message about the feedback submission
+          example: "Feedback recorded successfully"

@@ -84,16 +84,17 @@
 
 ### Functional Requirements
 
-- **FR-001**: Content MUST follow educational progression from beginner to advanced concepts
-- **FR-002**: Content MUST demonstrate technical accuracy with ROS2, URDF, and real control systems
-- **FR-003**: Content MUST include reproducible hands-on examples and practical implementations
-- **FR-004**: Content MUST address ethical considerations and responsible AI practices
-- **FR-005**: Content MUST provide clear learning objectives, implementation steps, and final exercises
+- **FR-001**: System MUST retrieve and respond with information exclusively from the textbook content
+- **FR-002**: Responses MUST be contextually aware and generated using RAG (Retrieval Augmented Generation)
+- **FR-003**: System MUST support both full-book and user-selected text queries
+- **FR-004**: All API interactions MUST maintain proper authentication and security protocols
+- **FR-005**: Responses MUST be delivered within 3 seconds to ensure smooth user experience
+- **FR-006**: Conversation history MUST be stored and retrieved across user sessions
 
 *Example of marking unclear requirements:*
 
-- **FR-006**: Code examples MUST align with [NEEDS CLARIFICATION: specific framework or technology requirements]
-- **FR-007**: Content depth MUST reach [NEEDS CLARIFICATION: specific word count or chapter length requirements]
+- **FR-007**: System MUST handle [NEEDS CLARIFICATION: specific query complexity or maximum interaction length]
+- **FR-008**: Vector storage MUST support [NEEDS CLARIFICATION: specific performance requirements or query capabilities]
 
 ### Key Entities *(include if feature involves data)*
 

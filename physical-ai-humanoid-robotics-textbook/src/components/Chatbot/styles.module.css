@@ -1,0 +1,243 @@
+/* my_website/Chatbot/styles.module.css */
+
+.floatingButton {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background: linear-gradient(135deg,#5eead4,#60a5fa);
+  color: #04263b;
+  border: none;
+  border-radius: 28px;
+  min-width: 72px;
+  height: 48px;
+  padding: 0 14px;
+  font-size: 1rem;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+  z-index: 1100;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.floatingButton:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(2,6,23,0.7)}
+
+.chatWindow {
+  position: fixed;
+  bottom: 90px;
+  right: 24px;
+  width: 420px;
+  max-width: calc(100% - 48px);
+  height: 540px;
+  background: linear-gradient(180deg, rgba(6,10,17,0.88), rgba(12,17,25,0.95));
+  border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(2,6,23,0.6);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1100;
+  color: #e6eef8;
+  backdrop-filter: blur(6px);
+}
+
+.chatHeader {
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.chatHeader h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #f8fafc;
+  font-weight: 600;
+}
+
+.chatHeader .sub {
+  font-size: 0.75rem;
+  color: rgba(230,238,248,0.75);
+}
+
+/* exportable sub class for CSS modules usage */
+.sub{
+  font-size: 0.75rem;
+  color: rgba(230,238,248,0.75);
+}
+
+.chatHeader button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: rgba(230,238,248,0.9);
+}
+
+.headerAvatar{width:36px;height:36px;border-radius:10px;background:linear-gradient(180deg,#0ea5a6,#7c3aed);display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+
+.chatMessages {
+  flex-grow: 1;
+  padding: 18px;
+  overflow-y: auto;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,0.02));
+}
+
+.message {
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  max-width: 82%;
+  word-wrap: break-word;
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+.message p {
+    margin: 0;
+}
+
+/* user (me) bubble */
+.message.user {
+  background: linear-gradient(135deg,#0ea5a6,#60a5fa);
+  color: #04263b;
+  align-self: flex-end;
+  margin-left: auto;
+  box-shadow: 0 6px 22px rgba(96,165,250,0.12);
+}
+
+/* bot bubble */
+.message.bot {
+  background: rgba(255,255,255,0.04);
+  color: rgba(230,238,248,0.95);
+  align-self: flex-start;
+  margin-right: auto;
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+.sourceReferences {
+  font-size: 0.78rem;
+  margin-top: 8px;
+  color: rgba(230,238,248,0.9);
+  background: rgba(255,255,255,0.02);
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.02);
+}
+
+.sourceReferences ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 5px 0 0 0;
+}
+
+.sourceReferences li {
+    word-break: break-all;
+    margin-bottom: 3px;
+}
+
+.showMoreButton {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.03);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-top: 8px;
+  color: rgba(230,238,248,0.95);
+}
+
+.feedbackButtons {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.feedbackButton {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.03);
+  border-radius: 8px;
+  padding: 6px 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: rgba(230,238,248,0.95);
+}
+
+.feedbackButton:hover {background: rgba(255,255,255,0.04)}
+
+.clearHistoryButton {
+  background: rgba(255,255,255,0.03);
+  color: rgba(230,238,248,0.95);
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  margin-right: 10px;
+}
+
+.clearHistoryButton:hover {background: rgba(255,255,255,0.04)}
+
+.selectedTextPrompt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background: rgba(255,255,255,0.01);
+  border-top: 1px solid rgba(255,255,255,0.02);
+  font-size: 0.9rem;
+  color: rgba(230,238,248,0.95);
+}
+
+.selectedTextPrompt p {
+  margin: 0;
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.selectedTextPrompt button {
+  background: linear-gradient(135deg,#60a5fa,#7c3aed);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  margin-left: 10px;
+}
+
+.chatInputForm {
+  display: flex;
+  padding: 12px 14px;
+  border-top: 1px solid rgba(255,255,255,0.02);
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
+}
+
+.chatInputForm input {
+  flex-grow: 1;
+  border: 1px solid rgba(255,255,255,0.04);
+  background: rgba(0,0,0,0.2);
+  color: rgba(230,238,248,0.95);
+  border-radius: 999px;
+  padding: 10px 16px;
+  margin-right: 10px;
+  font-size: 0.95rem;
+}
+
+.chatInputForm button {
+  background: linear-gradient(135deg,#34d399,#60a5fa);
+  color: #04263b;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 640px){
+  .chatWindow{right:12px;left:12px;width:auto;height:60vh}
+  .floatingButton{right:12px;bottom:18px}
+}

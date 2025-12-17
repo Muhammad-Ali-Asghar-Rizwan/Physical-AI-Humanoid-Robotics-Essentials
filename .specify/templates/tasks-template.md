@@ -44,105 +44,111 @@ description: "Task list template for feature implementation"
   ============================================================================
 -->
 
-## Phase 1: Educational Infrastructure Setup
+## Phase 1: RAG Chatbot Infrastructure Setup
 
-**Purpose**: Establish textbook project structure with educational focus
+**Purpose**: Establish RAG Chatbot project structure with integration to textbook
 
-- [ ] T001 Create textbook project structure per implementation plan
-- [ ] T002 Initialize Docusaurus project with GitHub Pages deployment configuration
-- [ ] T003 [P] Configure educational content linting and formatting tools
-- [ ] T004 Set up documentation structure following specification-driven approach
-
----
-
-## Phase 2: Educational Foundation (Blocking Prerequisites)
-
-**Purpose**: Core educational infrastructure that MUST be complete before ANY chapter can be developed
-
-**⚠️ CRITICAL**: No chapter work can begin until this phase is complete
-
-Examples of foundational tasks (adjust based on your textbook project):
-
-- [ ] T005 [P] Establish content specification template for textbook chapters
-- [ ] T006 [P] Set up Docusaurus documentation infrastructure with proper navigation
-- [ ] T007 Create educational content models (objectives, examples, exercises) that all chapters depend on
-- [ ] T008 Configure content quality standards and verification processes
-- [ ] T009 Set up GitHub Pages deployment pipeline with build validation
-- [ ] T010 Establish technical accuracy verification process for AI/robotics content
-
-**Checkpoint**: Educational foundation ready - chapter implementation can now begin in parallel
+- [ ] T001 Create RAG Chatbot project structure per implementation plan
+- [ ] T002 Initialize FastAPI backend with async support and error handling
+- [ ] T003 [P] Configure Qdrant vector database integration
+- [ ] T004 Initialize Neon Postgres database for conversation history
+- [ ] T005 Set up OpenAI API integration with GPT-4 and embedding models
 
 ---
 
-## Phase 3: Chapter 1 - [Title] (Priority: P1) 🎯 MVP
+## Phase 2: Core API Infrastructure (Blocking Prerequisites)
 
-**Goal**: [Brief description of what this chapter teaches and implements]
+**Purpose**: Core RAG infrastructure that MUST be complete before frontend integration
 
-**Independent Test**: [How to verify this chapter works as a standalone learning unit]
+**⚠️ CRITICAL**: No frontend work can begin until this phase is complete
 
-### Validation Tests for Chapter 1 (REQUIRED for educational content) ⚠️
+Examples of foundational tasks (adjust based on your RAG Chatbot project):
 
-> **NOTE: Write these tests FIRST to verify content accuracy and reproducibility**
+- [ ] T006 [P] Set up authentication and security protocols for API endpoints
+- [ ] T007 [P] Implement vector embedding and storage functionality for textbook content
+- [ ] T008 Create conversation history models and database schema
+- [ ] T009 Implement RAG retrieval and generation pipeline
+- [ ] T010 Configure CORS and deployment settings for GitHub Pages frontend
+- [ ] T011 Implement rate limiting and API monitoring
 
-- [ ] T011 [P] [CH1] Technical accuracy verification for [topic] in specs/[chapter-name]/validation/
-- [ ] T012 [P] [CH1] Code example execution test for [implementation] in docs/chapters/[chapter-name]/examples/
-- [ ] T013 [P] [CH1] Exercise validation to confirm [learning objective] in docs/chapters/[chapter-name]/exercises/
-
-### Implementation for Chapter 1
-
-- [ ] T014 [P] [CH1] Create chapter specification in specs/[chapter-name]/spec.md
-- [ ] T015 [P] [CH1] Develop learning objectives and prerequisites in docs/chapters/[chapter-name]/objectives.md
-- [ ] T016 [CH1] Write core content with technical accuracy verification in docs/chapters/[chapter-name]/content.md
-- [ ] T017 [CH1] Implement reproducible code examples with ROS2/URDF alignment in docs/chapters/[chapter-name]/examples/
-- [ ] T018 [CH1] Add ethical considerations and safety notes in docs/chapters/[chapter-name]/safety.md
-- [ ] T019 [CH1] Create final chapter exercise validating student understanding
-
-**Checkpoint**: At this point, Chapter 1 should be fully educational and testable independently
+**Checkpoint**: Core RAG infrastructure ready - frontend integration can now begin
 
 ---
 
-## Phase 4: Chapter 2 - [Title] (Priority: P2)
+## Phase 3: Backend API - Basic Query (Priority: P1) 🎯 MVP
 
-**Goal**: [Brief description of what this chapter teaches and implements]
+**Goal**: Implement core query functionality that retrieves from textbook content only
 
-**Independent Test**: [How to verify this chapter works as a standalone learning unit]
+**Independent Test**: [How to verify the RAG query API works as a standalone component]
 
-### Validation Tests for Chapter 2 (REQUIRED for educational content) ⚠️
+### Validation Tests for Query API (REQUIRED for accurate retrieval) ⚠️
 
-- [ ] T020 [P] [CH2] Technical accuracy verification for [topic] in specs/[chapter-name]/validation/
-- [ ] T021 [P] [CH2] Code example execution test for [implementation] in docs/chapters/[chapter-name]/examples/
+> **NOTE: Write these tests FIRST to verify content accuracy and response time**
 
-### Implementation for Chapter 2
+- [ ] T012 [P] [API] Test that responses only contain textbook content without hallucinations
+- [ ] T013 [P] [API] Performance test to verify responses delivered within 3-second threshold
+- [ ] T014 [P] [API] Test that vector search retrieves relevant textbook sections
 
-- [ ] T022 [P] [CH2] Create chapter specification in specs/[chapter-name]/spec.md
-- [ ] T023 [CH2] Develop learning objectives and prerequisites in docs/chapters/[chapter-name]/objectives.md
-- [ ] T024 [CH2] Write core content with technical accuracy verification in docs/chapters/[chapter-name]/content.md
-- [ ] T025 [CH2] Implement reproducible code examples with ROS2/URDF alignment in docs/chapters/[chapter-name]/examples/
-- [ ] T026 [CH2] Integrate with Chapter 1 concepts (if needed for progressive learning)
+### Implementation for Query API
 
-**Checkpoint**: At this point, Chapters 1 AND 2 should both work as independent learning units
+- [ ] T015 [P] [API] Create API specification in specs/[feature-name]/spec.md
+- [ ] T016 [P] [API] Implement secure query endpoint in backend/src/api/query.py
+- [ ] T017 [API] Build RAG retrieval pipeline in backend/src/services/rag_service.py
+- [ ] T018 [API] Integrate with OpenAI GPT-4 for response generation in backend/src/services/llm_service.py
+- [ ] T019 [API] Add source citation functionality to responses in backend/src/services/citation_service.py
+- [ ] T020 [API] Implement error handling and fallback responses
+
+**Checkpoint**: At this point, Query API should be functional and respond with textbook content only
 
 ---
 
-## Phase 5: Chapter 3 - [Title] (Priority: P3)
+## Phase 4: Frontend Integration (Priority: P2)
 
-**Goal**: [Brief description of what this chapter teaches and implements]
+**Goal**: Integrate chatbot into Docusaurus book pages with React component
 
-**Independent Test**: [How to verify this chapter works as a standalone learning unit]
+**Independent Test**: [How to verify frontend component works as a standalone UI element]
 
-### Validation Tests for Chapter 3 (REQUIRED for educational content) ⚠️
+### Validation Tests for Frontend (REQUIRED for user experience) ⚠️
 
-- [ ] T027 [P] [CH3] Technical accuracy verification for [topic] in specs/[chapter-name]/validation/
-- [ ] T028 [P] [CH3] Code example execution test for [implementation] in docs/chapters/[chapter-name]/examples/
+- [ ] T021 [P] [FE] Test React component renders without errors on Docusaurus pages
+- [ ] T022 [P] [FE] Test chat interface functionality (sending/receiving messages)
+- [ ] T023 [P] [FE] Mobile responsiveness testing for various screen sizes
 
-### Implementation for Chapter 3
+### Implementation for Frontend
 
-- [ ] T029 [P] [CH3] Create chapter specification in specs/[chapter-name]/spec.md
-- [ ] T030 [CH3] Develop learning objectives and prerequisites in docs/chapters/[chapter-name]/objectives.md
-- [ ] T031 [CH3] Write core content with technical accuracy verification in docs/chapters/[chapter-name]/content.md
-- [ ] T032 [CH3] Implement reproducible code examples with ROS2/URDF alignment in docs/chapters/[chapter-name]/examples/
+- [ ] T024 [P] [FE] Create React chat component in frontend/src/components/Chatbot.jsx
+- [ ] T025 [FE] Implement API connection and authentication in frontend/src/services/api.js
+- [ ] T026 [FE] Add conversation history display in the UI
+- [ ] T027 [FE] Implement text selection query functionality
+- [ ] T028 [FE] Style component to match Docusaurus theme
+- [ ] T029 [FE] Add loading states and error handling to UI
 
-**Checkpoint**: All chapters should now be independently educational and functional
+**Checkpoint**: At this point, Frontend component should be integrated and functional with backend
+
+---
+
+## Phase 5: Advanced Features (Priority: P3)
+
+**Goal**: Implement conversation persistence and enhanced query options
+
+**Independent Test**: [How to verify history persistence works correctly]
+
+### Validation Tests for History Features (REQUIRED for persistent conversations) ⚠️
+
+- [ ] T030 [P] [HIST] Test that conversation history persists across sessions
+- [ ] T031 [P] [HIST] Test that last 5 messages are available for context
+- [ ] T032 [P] [HIST] Test that multiple users have separate conversation histories
+
+### Implementation for Advanced Features
+
+- [ ] T033 [P] [HIST] Create database schema for conversation storage
+- [ ] T034 [HIST] Implement history storage API endpoint
+- [ ] T035 [HIST] Implement history retrieval API endpoint
+- [ ] T036 [HIST] Add session management functionality
+- [ ] T037 [HIST] Frontend integration for history persistence
+- [ ] T038 [HIST] Add confidence scoring to responses
+
+**Checkpoint**: All advanced features should be functional with proper history management
 
 ---
 
@@ -150,16 +156,16 @@ Examples of foundational tasks (adjust based on your textbook project):
 
 ---
 
-## Phase N: Educational Polish & Cross-Cutting Concerns
+## Phase N: RAG Chatbot Polish & Cross-Cutting Concerns
 
-**Purpose**: Improvements that affect multiple chapters
+**Purpose**: Improvements that affect the entire system
 
-- [ ] TXXX [P] Educational content review and alignment across all chapters
-- [ ] TXXX Technical accuracy verification across all chapters
-- [ ] TXXX Consistency of pedagogical approach across all chapters
-- [ ] TXXX [P] Accessibility improvements (alt-text, navigation) across all content
-- [ ] TXXX Ethical considerations and safety notes review across all chapters
-- [ ] TXXX Run textbook build validation to ensure GitHub Pages deployment works
+- [ ] TXXX [P] Performance optimization across all components
+- [ ] TXXX Security review and audit of all API endpoints
+- [ ] TXXX [P] Accessibility improvements (keyboard navigation, screen readers)
+- [ ] TXXX Error handling and logging improvements across all services
+- [ ] TXXX Run full system integration tests to ensure all components work together
+- [ ] TXXX Load testing to verify system performance under expected usage
 
 ---
 

@@ -9,36 +9,41 @@ import styles from './styles.module.css';
 const HomepageHeader = () => {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">
-        <div className={styles.heroContent}>
-          <div className={styles.heroText}>
-            <h1 className="hero__title">{siteConfig.title}</h1>
-            <p className="hero__subtitle">Master the future of embodied intelligence</p>
-            <div className={styles.buttons}>
-              <Link
-                className="button button--secondary button--lg"
-                to="/docs/module-1-ros2-nervous-system">
-                Start Learning
-              </Link>
-              <Link
-                className="button button--primary button--lg"
-                to="/docs/module-1-ros2-nervous-system">
-                View Modules
-              </Link>
-            </div>
+    <header className={styles.heroBanner}>
+      <nav className={styles.navbar}>
+        <div className={styles.navContainer}>
+          <div className={styles.navBrand}>Physical AI & Humanoid Robotics Textbook</div>
+          <div className={styles.navLinks}>
+            <Link to="#chapters" className={styles.navLink}>Chapters</Link>
+            <Link to="#simulations" className={styles.navLink}>Simulations</Link>
+            <Link to="#hardware" className={styles.navLink}>Hardware Specs</Link>
+            <Link to="#community" className={styles.navLink}>Community</Link>
           </div>
-          <div className={styles.heroImage}>
-            <img
-              src="/img/hero-robot.jpg"
-              alt="Humanoid Robot"
-              className={styles.heroImagePlaceholder}
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='300' viewBox='0 0 500 300'%3E%3Crect width='500' height='300' fill='%234a6cf7'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='40' fill='white'%3E🤖%3C/text%3E%3C/svg%3E";
-              }}
-            />
+        </div>
+      </nav>
+
+      <div className={styles.heroContent}>
+        <div className={styles.heroText}>
+          <h1 className={styles.heroTitle}>The Future is<br/>Physical:<br/>AI-Native Robotics<br/>Textbook</h1>
+          <p className={styles.heroSubtitle}>Comprehensive guide to building embodied intelligence.</p>
+          <div className={styles.buttons}>
+            <Link
+              className={styles.heroCTA}
+              to="/docs/module-1-ros2-nervous-system">
+              Start Chapter 1
+            </Link>
           </div>
+        </div>
+        <div className={styles.heroImage}>
+          <img
+            src="/img/hero-robot.jpg"
+            alt="Humanoid Robot"
+            className={styles.heroImagePlaceholder}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='600' viewBox='0 0 500 600'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%235a67d8;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%239f7aea;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='500' height='600' fill='url(%23grad)'/%3E%3Ccircle cx='250' cy='150' r='80' fill='%23e5e7eb' opacity='0.3'/%3E%3C/svg%3E";
+            }}
+          />
         </div>
       </div>
     </header>
