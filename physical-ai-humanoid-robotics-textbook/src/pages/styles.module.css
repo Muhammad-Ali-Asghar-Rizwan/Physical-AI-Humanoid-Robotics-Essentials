@@ -153,12 +153,13 @@
   justify-content: center;
   align-items: center;
   position: relative;
+ 
 }
 
 .heroImagePlaceholder {
   width: 100%;
   max-width: 500px;
-  height: auto;
+  height: 500px;
   border-radius: 16px;
   display: block;
   object-fit: cover;

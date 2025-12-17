@@ -36,13 +36,15 @@ const HomepageHeader = () => {
         </div>
         <div className={styles.heroImage}>
           <img
-            src="/img/hero-robot.jpg"
+            src="/img/robot.jpg"
             alt="Humanoid Robot"
             className={styles.heroImagePlaceholder}
             onError={(e) => {
               e.target.onerror = null;
-              e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='600' viewBox='0 0 500 600'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%235a67d8;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%239f7aea;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='500' height='600' fill='url(%23grad)'/%3E%3Ccircle cx='250' cy='150' r='80' fill='%23e5e7eb' opacity='0.3'/%3E%3C/svg%3E";
-            }}
+              // e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='800' viewBox='0 0 400 400'%3E%3Crect width='400' height='800' fill='%23dfe6e9'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='40' fill='%237b8c93'%3ERobot%3C/text%3E%3C/svg%3E";}}
+          // />
+            }
+          }
           />
         </div>
       </div>
@@ -64,18 +66,19 @@ const FeatureCard = ({ title, description, icon, moduleNumber, to }) => (
   </div>
 );
 
+
 const LearningSection = () => (
   <section className={styles.learningSection}>
     <div className="container padding-horiz--md">
       <div className="row">
         <div className="col col--6">
           <img
-            src="/img/robot-simulation.jpg"
-            alt="Robot Simulation"
+            src="/img/learn.webp"
+            alt="What You'll Learn"
             className={styles.learningImagePlaceholder}
             onError={(e) => {
               e.target.onerror = null;
-              e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='300' viewBox='0 0 500 300'%3E%3Crect width='500' height='300' fill='%236c5ce7'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='40' fill='white'%3E🎮%3C/text%3E%3C/svg%3E";
+              e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='300' viewBox='0 0 500 300'%3E%3Crect width='500' height='300' fill='%236c5ce7'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='40' fill='white'%3E🎓%3C/text%3E%3C/svg%3E";
             }}
           />
         </div>
@@ -302,8 +305,6 @@ export default function Home() {
 
         {/* Additional sections */}
         <LearningSection />
-        <TechnologiesSection />
-        <ProjectsSection />
       </main>
     </Layout>
   );
