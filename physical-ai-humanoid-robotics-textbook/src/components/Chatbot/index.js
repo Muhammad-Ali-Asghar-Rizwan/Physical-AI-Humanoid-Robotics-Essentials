@@ -9,6 +9,7 @@ function Chatbot({ selectedTextFromPage }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [currentSelectedText, setCurrentSelectedText] = useState('');
+  const [isThinking, setIsThinking] = useState(false); // New state for thinking indicator
 
   // Load messages from local storage on component mount
   useEffect(() => {
@@ -44,6 +45,9 @@ function Chatbot({ selectedTextFromPage }) {
     setMessages((prevMessages) => [...prevMessages, userMessage]);
     setInput('');
 
+    // Show thinking indicator
+    setIsThinking(true);
+
     try {
       const response = await fetch(`${BACKEND_API_URL}/query`, {
         method: 'POST',
@@ -57,12 +61,12 @@ function Chatbot({ selectedTextFromPage }) {
         throw new Error(`Backend returned ${response.status}: ${text}`);
       }
       const data = await response.json();
-      const botMessage = { 
-        id: messages.length + 2, 
-        text: data.answer, 
+      const botMessage = {
+        id: messages.length + 2,
+        text: data.answer,
         detailed_text: data.detailed_answer, // Store detailed answer
-        sender: 'bot', 
-        source_references: data.source_references 
+        sender: 'bot',
+        source_references: data.source_references
       };
       setMessages((prevMessages) => [...prevMessages, botMessage]);
     } catch (error) {
@@ -70,6 +74,9 @@ function Chatbot({ selectedTextFromPage }) {
       const errText = error && error.message ? `Error: ${error.message}` : 'Error: Could not connect to the chatbot. Please try again later.';
       const errorMessage = { id: messages.length + 2, text: errText, sender: 'bot' };
       setMessages((prevMessages) => [...prevMessages, errorMessage]);
+    } finally {
+      // Hide thinking indicator after response is received or error occurs
+      setIsThinking(false);
     }
   };
 
@@ -159,6 +166,18 @@ function Chatbot({ selectedTextFromPage }) {
                 </div>
               )
             ))}
+            {isThinking && (
+              <div className={`${styles.message} ${styles.bot}`}>
+                <div className={styles.thinkingIndicator}>
+                  <span>Thinking</span>
+                  <span className={styles.dots}>
+                    <span>.</span>
+                    <span>.</span>
+                    <span>.</span>
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
           {currentSelectedText && (
             <div className={styles.selectedTextPrompt}>
