@@ -11,7 +11,7 @@ The project is divided into two main components:
 - Handles RAG pipeline, embeddings, and vector storage
 - Connects to Qdrant Cloud for vector search
 - Stores chat history in Neon Postgres
-- Uses OpenAI and Cohere APIs for generation and embeddings
+- Uses OpenRouter (free tier) and Cohere APIs for generation and embeddings
 
 ### Frontend (Docusaurus Integration)
 - React-based chat widget
@@ -54,7 +54,7 @@ pip install -r requirements.txt
 
 2. Set up environment variables in `.env` file:
 ```
-OPENAI_API_KEY=your_openai_api_key
+OPENROUTER_API_KEY=your_openrouter_api_key  # Free tier available
 COHERE_API_KEY=your_cohere_api_key
 QDRANT_API_KEY=your_qdrant_api_key
 QDRANT_URL=your_qdrant_cluster_url
