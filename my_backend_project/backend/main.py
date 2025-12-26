@@ -13,6 +13,7 @@ app = FastAPI()
 origins = [
     "http://localhost:3000",  # Docusaurus local development server
     "https://humanoid-robotics-book-lovat.vercel.app",  # Vercel deployment URL
+    "https://physical-ai-humanoid-robotics-essen-opal.vercel.app/",  # Vercel deployment URL
 ]
 
 app.add_middleware(
