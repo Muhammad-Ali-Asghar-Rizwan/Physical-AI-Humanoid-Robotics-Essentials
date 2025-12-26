@@ -116,7 +116,8 @@ const config = {
       },
         // Add custom fields here so they are present on the exported config
         customFields: {
-          backendApiUrl: 'http://localhost:8000',
+          backendApiUrl: '<your-backend-api-url>', // Update this to your deployed backend URL
+          
         },
     }),
 };
