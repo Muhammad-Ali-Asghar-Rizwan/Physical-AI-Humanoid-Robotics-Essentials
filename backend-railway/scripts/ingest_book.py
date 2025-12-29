@@ -1,3 +1,4 @@
+import asyncio
 import os
 import sys
 
@@ -9,10 +10,10 @@ from backend.rag.chunker import chunk_documents
 from backend.rag.embeddings import generate_embeddings
 from backend.rag.retriever import recreate_qdrant_collection, upsert_documents_to_qdrant
 
-def main():
+async def main():
     print("Starting book ingestion process...")
 
-    docs_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'backend'))
+    docs_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'my_website', 'docs'))
     print(f"Loading documents from: {docs_path}")
 
     # Load and clean
@@ -24,15 +25,15 @@ def main():
     print(f"Created {len(chunks)} chunks.")
 
     # Generate Embeddings
-    embeddings = generate_embeddings(chunks)
+    embeddings = await generate_embeddings(chunks)
     print(f"Generated {len(embeddings)} embeddings.")
 
     # Qdrant Setup
-    recreate_qdrant_collection()
+    await recreate_qdrant_collection()
 
     # Store Vectors
-    upsert_documents_to_qdrant(chunks, embeddings)
+    await upsert_documents_to_qdrant(chunks, embeddings)
     print("Book ingestion complete.")
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

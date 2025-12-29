@@ -32,9 +32,10 @@ def upsert_documents_to_qdrant(documents: List[Document], embeddings: List[List[
 def search_qdrant(query_vector: List[float], limit: int = 5) -> List[Dict[str, Any]]:
     """Performs a similarity search in Qdrant."""
     try:
-        search_result = qdrant_client.search(
+        search_result = qdrant_client.query_points(
             collection_name=COLLECTION_NAME,
-            query_vector=query_vector,
+            prefetch=[],
+            query=query_vector,
             limit=limit,
             with_payload=True,
         )
@@ -43,29 +44,10 @@ def search_qdrant(query_vector: List[float], limit: int = 5) -> List[Dict[str, A
                 "text": hit.payload.get("text", ""),
                 "source": hit.payload.get("source", "unknown")
             }
-            for hit in search_result
+            for hit in search_result.points
             if hit.payload
         ]
         return documents
     except Exception as e:
         print(f"Error during Qdrant search: {e}")
-        # If search fails, try the newer query_points method
-        try:
-            search_result = qdrant_client.query_points(
-                collection_name=COLLECTION_NAME,
-                query=query_vector,
-                limit=limit,
-                with_payload=True,
-            )
-            documents = [
-                {
-                    "text": hit.payload.get("text", ""),
-                    "source": hit.payload.get("source", "unknown")
-                }
-                for hit in search_result.points
-                if hit.payload
-            ]
-            return documents
-        except Exception as e2:
-            print(f"Error during fallback Qdrant search: {e2}")
-            return []
+        return []
