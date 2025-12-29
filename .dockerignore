@@ -1,0 +1,5 @@
+backend-railway/.venv
+backend-railway/__pycache__
+*.pyc
+.git
+.env
