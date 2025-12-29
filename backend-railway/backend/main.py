@@ -1,17 +1,11 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from .schemas import QueryRequest, QueryResponse
-from .config import cohere_client, qdrant_client
+from .config import cohere_client
 from .rag.retriever import search_qdrant
 from .rag.agent import generate_rag_response
 
 app = FastAPI()
-
-# Check if required clients are initialized
-if not cohere_client:
-    print("ERROR: Cohere client not initialized. Check COHERE_API_KEY environment variable.")
-if not qdrant_client:
-    print("ERROR: Qdrant client not initialized. Check QDRANT_URL and QDRANT_API_KEY environment variables.")
 
 # Add CORS middleware to allow requests from the Docusaurus frontend
 origins = [
