@@ -4,10 +4,10 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Copy application
-COPY . /app
+COPY backend-railway/ /app/
 
 # Ensure requirements are present and install only them first (layer cache)
-COPY requirements.txt ./
+COPY backend-railway/requirements.txt ./requirements.txt
 
 # Prevent Python from writing pyc files and buffer stdout/stderr
 ENV PYTHONDONTWRITEBYTECODE=1
