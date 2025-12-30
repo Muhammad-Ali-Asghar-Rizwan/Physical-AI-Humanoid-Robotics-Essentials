@@ -1,32 +1,41 @@
 // @ts-check
-import { themes as prismThemes } from 'prism-react-renderer';
+// `@type` JSDoc annotations allow editor autocompletion and type checking
+// (when paired with `@ts-check`).
+// There are various equivalent ways to declare your Docusaurus config.
+// See: https://docusaurus.io/docs/api/docusaurus-config
+
+import {themes as prismThemes} from 'prism-react-renderer';
+
+// This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Physical AI & Humanoid Robotics',
-  tagline: 'Exploring the intersection of artificial intelligence and humanoid robotics',
+  tagline: 'An Open-Source Textbook for a New Era of Robotics',
+  url: 'https://physical-ai-humanoid-robotics-essen-opal.vercel.app/',
   favicon: 'img/favicon.ico',
 
-  // Set the production url of your site here
-  url: 'https://physical-ai-humanoid-robotics-essen-smoky.vercel.app/',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub Pages deployment, it's usually '/<projectName>/'
+  // Add custom fields here
+  customFields: {
+    // Make the backend URL available to the client-side
+    backendUrl: process.env.DOCUSAURUS_RAILWAY_BACKEND_URL || 'https://physical-ai-humanoid-robotics-essentials-production.up.railway.app/',
+  },
+
   baseUrl: '/',
 
   // GitHub pages deployment config.
-  organizationName: 'your-organization', // Usually your GitHub org/user name.
-  projectName: 'physical-ai-humanoid-robotics-textbook', // Usually your repo name.
-  deploymentBranch: 'gh-pages', // Branch that GitHub Pages will deploy from.
+  // If you aren't using GitHub pages, you don't need these.
+  organizationName: 'humanoid-robotics-book', // Usually your GitHub org/user name.
+  projectName: 'humanoid-robotics-book', // Usually your repo name.
 
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'ur'], // English and Urdu for translation feature
+    locales: ['en'],
   },
 
   presets: [
@@ -35,14 +44,14 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
+          sidebarPath: './sidebars.js',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/your-organization/physical-ai-humanoid-robotics-textbook/tree/main/',
+            'https://github.com/humanoid-robotics-book/humanoid-robotics-book/tree/main/my-website/',
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: './src/css/custom.css',
         },
       }),
     ],
@@ -53,22 +62,33 @@ const config = {
     ({
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
+      colorMode: {
+        respectPrefersColorScheme: true,
+      },
       navbar: {
         title: 'Physical AI & Humanoid Robotics',
         logo: {
-          alt: 'Physical AI & Humanoid Robotics Logo',
-          src: 'img/logo.svg',
+          alt: 'Book Logo',
+          src: 'img/book_logo.png',
+          href: '/',
+          className: 'navbar__logo',
         },
         items: [
           {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Textbook',
+            label: 'TextBook',
+          },
+
+          {
+            href: 'https://github.com/MAHABRIZWAN4',
+            label: 'GitHub',
+            position: 'right',
           },
           {
-            href: 'https://github.com/your-organization/physical-ai-humanoid-robotics-textbook',
-            label: 'GitHub',
+            href: 'https://www.linkedin.com/in/mahab-rizwan-831095341/',
+            label: 'LinkedIn',
             position: 'right',
           },
         ],
@@ -80,8 +100,8 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Textbook',
-                to: '/docs/module-1-ros2-nervous-system',
+                label: 'TextBook',
+                to: '/', // Link to project homepage
               },
             ],
           },
@@ -96,6 +116,10 @@ const config = {
                 label: 'Discord',
                 href: 'https://discordapp.com/invite/docusaurus',
               },
+              {
+                label: 'X',
+                href: 'https://x.com/docusaurus',
+              },
             ],
           },
           {
@@ -103,24 +127,22 @@ const config = {
             items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/your-organization/physical-ai-humanoid-robotics-textbook',
+                href: 'https://github.com/MAHABRIZWAN4', // Updated GitHub link
+              },
+              {
+                label: 'LinkedIn',
+                href: 'https://www.linkedin.com/in/mahab-rizwan-831095341/', // Added LinkedIn link
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Physical AI & Humanoid Robotics Textbook. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Physical AI & Humanoid Robotics Textbook, Inc. Built with Docusaurus.`,
       },
       prism: {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
       },
-        // Add custom fields here so they are present on the exported config
-        customFields: {
-          backendApiUrl: '<your-backend-api-url>', // Update this to your deployed backend URL
-          
-        },
     }),
 };
 
-    // Export the config for Docusaurus (CommonJS)
-    module.exports = config;
+export default config;
