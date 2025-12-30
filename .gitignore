@@ -126,3 +126,7 @@ Icon?
 .vscode/settings.json
 .idea/
 *.local
+
+# Python requirements (ensure this is not ignored despite *.txt rule above)
+!requirements.txt
+ 

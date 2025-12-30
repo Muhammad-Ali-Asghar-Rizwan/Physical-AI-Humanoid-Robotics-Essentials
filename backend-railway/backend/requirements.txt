@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+cohere
+qdrant-client
+openai
+psycopg2-binary
+python-dotenv
+markdown-it-py
+google-generativeai
