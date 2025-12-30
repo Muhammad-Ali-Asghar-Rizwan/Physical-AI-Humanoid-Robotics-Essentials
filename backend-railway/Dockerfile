@@ -8,7 +8,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 # Copy requirements.txt file to the container
-COPY requirements.txt .
+COPY ./requirements.txt /app/requirements.txt
 
 # Install dependencies (install only requirements to leverage cache)
 RUN python -m pip install --upgrade pip \
