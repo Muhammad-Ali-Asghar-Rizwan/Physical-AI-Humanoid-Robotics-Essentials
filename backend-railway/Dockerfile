@@ -2,12 +2,8 @@ FROM python:3.11-slim
 
 # Set working directory
 WORKDIR /app
-
-# Copy application
-COPY backend-railway/ /app/
-
 # Ensure requirements are present and install only them first (layer cache)
-COPY backend-railway/requirements.txt ./requirements.txt
+COPY requirements.txt ./requirements.txt
 
 # Prevent Python from writing pyc files and buffer stdout/stderr
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -15,6 +11,9 @@ ENV PYTHONUNBUFFERED=1
 # Install dependencies (install only requirements to leverage cache)
 RUN python -m pip install --upgrade pip \
     && python -m pip install -r requirements.txt
+
+# Copy application code (current build context is backend-railway folder)
+COPY . /app/
 
 # Expose port
 EXPOSE 8000
