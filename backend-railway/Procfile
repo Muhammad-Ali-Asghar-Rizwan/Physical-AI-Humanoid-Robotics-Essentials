@@ -1,2 +1,0 @@
-release: ./start.sh --install-only
-web: ./start.sh
