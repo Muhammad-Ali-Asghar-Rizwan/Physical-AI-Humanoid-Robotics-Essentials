@@ -2,19 +2,11 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Copy requirements
-COPY requirements.txt ./requirements.txt
-
-# Prevent Python from writing pyc files and buffer stdout/stderr
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
+# Copy all files first
+COPY . /app/
 
 # Install dependencies
-RUN python -m pip install --upgrade pip \
-    && python -m pip install -r requirements.txt
-
-# Copy application code
-COPY . /app/
+RUN python -m pip install --upgrade pip && python -m pip install -r requirements.txt
 
 EXPOSE 8000
 
