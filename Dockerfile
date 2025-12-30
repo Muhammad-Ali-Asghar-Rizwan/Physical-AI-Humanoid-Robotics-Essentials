@@ -2,8 +2,8 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Copy requirements from the backend-railway folder
-COPY backend-railway/requirements.txt ./requirements.txt
+# Copy requirements (use relative path since Service Root Directory is /backend-railway)
+COPY requirements.txt ./requirements.txt
 
 # Prevent Python from writing pyc files and buffer stdout/stderr
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -14,7 +14,7 @@ RUN python -m pip install --upgrade pip \
     && python -m pip install -r requirements.txt
 
 # Copy application code
-COPY backend-railway/ /app/
+COPY . /app/
 
 EXPOSE 8000
 
