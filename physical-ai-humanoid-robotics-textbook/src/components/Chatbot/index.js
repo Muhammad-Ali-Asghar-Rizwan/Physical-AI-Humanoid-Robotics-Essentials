@@ -67,15 +67,16 @@ function Chatbot({ selectedTextFromPage }) {
       });
       clearTimeout(timeoutId);
 
-      // Log response for debugging
       console.log('Response status:', response.status);
       console.log('Response headers:', response.headers);
 
       if (!response.ok) {
         const text = await response.text().catch(() => response.statusText || 'Unknown error');
+        console.error('Backend error response:', text);
         throw new Error(`Backend returned ${response.status}: ${text}`);
       }
       const data = await response.json();
+      console.log('Response data:', data);
       const botMessage = {
         id: messages.length + 2,
         text: data.answer,
