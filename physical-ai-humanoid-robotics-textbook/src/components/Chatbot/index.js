@@ -57,7 +57,14 @@ function Chatbot({ selectedTextFromPage }) {
       console.log('Making request to:', `${BACKEND_API_URL}/query`);
       console.log('Request payload:', { question: question, selected_text: selectedText });
 
-      const response = await fetch(`${BACKEND_API_URL}/query`, {
+      // Ensure the URL is properly formatted (avoid double slashes)
+      const queryUrl = BACKEND_API_URL.replace(/\/+$/, '') + '/query';
+
+      console.log('Making request to URL:', queryUrl);
+      console.log('Request method:', 'POST');
+      console.log('Request body:', JSON.stringify({ question: question, selected_text: selectedText }));
+
+      const response = await fetch(queryUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -82,13 +82,15 @@ def read_health():
 @app.options("/query")
 def query_options():
     from fastapi.responses import Response
-    return Response(
+    response = Response(
+        content="OK",
         headers={
             "Access-Control-Allow-Origin": "https://physical-ai-humanoid-robotics-essen-opal.vercel.app",
             "Access-Control-Allow-Methods": "POST, OPTIONS",
             "Access-Control-Allow-Headers": "Content-Type, Authorization",
         }
     )
+    return response
 
 # Handle preflight requests for the root endpoint
 @app.options("/")
@@ -111,6 +113,18 @@ def health_options():
             "Access-Control-Allow-Origin": "https://physical-ai-humanoid-robotics-essen-opal.vercel.app",
             "Access-Control-Allow-Methods": "GET, OPTIONS",
             "Access-Control-Allow-Headers": "Content-Type",
+        }
+    )
+
+# Temporary GET endpoint for debugging - this should not be called by the frontend
+@app.get("/query")
+def query_debug():
+    from fastapi.responses import JSONResponse
+    return JSONResponse(
+        status_code=405,
+        content={
+            "detail": "GET method not allowed. The frontend should make a POST request to this endpoint.",
+            "error": "Make sure your frontend is sending a POST request with JSON body"
         }
     )
 
@@ -149,11 +163,12 @@ def query_chatbot(request: QueryRequest):
         # Generate answer using LLM agent
         llm_response = generate_rag_response(request.question, context_chunks, source_references)
 
-        return QueryResponse(
+        response = QueryResponse(
             answer=llm_response["answer"],
             detailed_answer=llm_response["detailed_answer"],
             source_references=llm_response["sources"]
         )
+        return response
     except HTTPException:
         # Re-raise HTTP exceptions as-is
         raise
