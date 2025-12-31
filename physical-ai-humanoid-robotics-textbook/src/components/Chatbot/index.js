@@ -53,6 +53,10 @@ function Chatbot({ selectedTextFromPage }) {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
 
+      // Log the request for debugging
+      console.log('Making request to:', `${BACKEND_API_URL}/query`);
+      console.log('Request payload:', { question: question, selected_text: selectedText });
+
       const response = await fetch(`${BACKEND_API_URL}/query`, {
         method: 'POST',
         headers: {
@@ -62,6 +66,10 @@ function Chatbot({ selectedTextFromPage }) {
         signal: controller.signal
       });
       clearTimeout(timeoutId);
+
+      // Log response for debugging
+      console.log('Response status:', response.status);
+      console.log('Response headers:', response.headers);
 
       if (!response.ok) {
         const text = await response.text().catch(() => response.statusText || 'Unknown error');
