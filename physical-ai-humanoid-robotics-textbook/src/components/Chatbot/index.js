@@ -49,13 +49,20 @@ function Chatbot({ selectedTextFromPage }) {
     setIsThinking(true);
 
     try {
+      // Add timeout handling for Railway sleep/wake scenarios
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+
       const response = await fetch(`${BACKEND_API_URL}/query`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ question: question, selected_text: selectedText }),
+        signal: controller.signal
       });
+      clearTimeout(timeoutId);
+
       if (!response.ok) {
         const text = await response.text().catch(() => response.statusText || 'Unknown error');
         throw new Error(`Backend returned ${response.status}: ${text}`);
@@ -71,7 +78,16 @@ function Chatbot({ selectedTextFromPage }) {
       setMessages((prevMessages) => [...prevMessages, botMessage]);
     } catch (error) {
       console.error('Error sending message:', error);
-      const errText = error && error.message ? `Error: ${error.message}` : 'Error: Could not connect to the chatbot. Please try again later.';
+      let errText = 'Error: Could not connect to the chatbot. Please try again later.';
+
+      if (error.name === 'AbortError') {
+        errText = 'Error: Request timed out. The backend might be waking up from sleep. Please try again.';
+      } else if (error.message.includes('Failed to fetch')) {
+        errText = 'Error: Unable to connect to the backend. The server might be temporarily unavailable. Please try again in a moment.';
+      } else if (error.message) {
+        errText = `Error: ${error.message}`;
+      }
+
       const errorMessage = { id: messages.length + 2, text: errText, sender: 'bot' };
       setMessages((prevMessages) => [...prevMessages, errorMessage]);
     } finally {

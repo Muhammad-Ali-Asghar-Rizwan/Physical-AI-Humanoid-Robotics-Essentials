@@ -18,7 +18,7 @@ const config = {
   // Add custom fields here
   customFields: {
     // Make the backend URL available to the client-side
-    backendUrl: process.env.DOCUSAURUS_RAILWAY_BACKEND_URL || 'https://physical-ai-humanoid-robotics-essentials-production.up.railway.app/',
+    backendApiUrl: process.env.DOCUSAURUS_RAILWAY_BACKEND_URL || 'https://physical-ai-humanoid-robotics-essentials-production.up.railway.app/',
   },
 
   baseUrl: '/',
