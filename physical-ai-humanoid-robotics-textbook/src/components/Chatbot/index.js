@@ -30,6 +30,7 @@ function Chatbot({ selectedTextFromPage }) {
 
   const { siteConfig } = useDocusaurusContext();
 
+  // Import the API configuration
   const BACKEND_API_URL = (siteConfig && siteConfig.customFields && siteConfig.customFields.backendApiUrl)
     || (typeof process !== 'undefined' && process.env && process.env.BACKEND_API_URL)
     || 'http://localhost:8000';
@@ -64,14 +65,41 @@ function Chatbot({ selectedTextFromPage }) {
       console.log('Request method:', 'POST');
       console.log('Request body:', JSON.stringify({ question: question, selected_text: selectedText }));
 
-      const response = await fetch(queryUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ question: question, selected_text: selectedText }),
-        signal: controller.signal
-      });
+      let response;
+      let attempt = 1;
+      const maxAttempts = 2;
+      let lastError;
+
+      // Try direct request first
+      while (attempt <= maxAttempts) {
+        try {
+          const urlToUse = attempt === 1 ? queryUrl : `https://cors-anywhere.herokuapp.com/${queryUrl}`;
+          console.log(`Attempt ${attempt}: Making request to ${urlToUse}`);
+
+          response = await fetch(urlToUse, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              // For CORS proxy, we might need to add the original host header
+              ...(attempt > 1 && { 'X-Requested-With': 'XMLHttpRequest' })
+            },
+            body: JSON.stringify({ question: question, selected_text: selectedText }),
+            signal: controller.signal
+          });
+
+          // If this is the proxy attempt and it's successful, log it
+          if (attempt > 1 && response.ok) {
+            console.log('Proxy request successful');
+          }
+
+          break; // If request is successful, break the loop
+        } catch (error) {
+          lastError = error;
+          console.error(`Attempt ${attempt} failed:`, error);
+          attempt++;
+        }
+      }
+
       clearTimeout(timeoutId);
 
       console.log('Response status:', response.status);
@@ -82,7 +110,22 @@ function Chatbot({ selectedTextFromPage }) {
         console.error('Backend error response:', text);
         throw new Error(`Backend returned ${response.status}: ${text}`);
       }
-      const data = await response.json();
+
+      // For proxy requests, the response might be different
+      let data;
+      if (attempt > 1) { // If we used the proxy
+        // The proxy might return the raw response, so parse it
+        const responseText = await response.text();
+        try {
+          data = JSON.parse(responseText);
+        } catch (e) {
+          console.error('Error parsing proxy response:', responseText);
+          throw new Error(`Could not parse response: ${responseText}`);
+        }
+      } else {
+        data = await response.json();
+      }
+
       console.log('Response data:', data);
       const botMessage = {
         id: messages.length + 2,
@@ -109,6 +152,11 @@ function Chatbot({ selectedTextFromPage }) {
         console.log('Production environment detected');
         console.log('Backend API URL:', BACKEND_API_URL);
         console.log('Sending request to:', `${BACKEND_API_URL}/query`);
+      }
+
+      // Provide more specific error message for CORS issues
+      if (error.message.includes('CORS') || error.message.includes('cors')) {
+        errText = 'Error: CORS issue detected. Using proxy fallback...';
       }
 
       const errorMessage = { id: messages.length + 2, text: errText, sender: 'bot' };
