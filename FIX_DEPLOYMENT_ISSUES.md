@@ -1,7 +1,7 @@
 # Fix for "Failed to fetch" Error in Deployed Version
 
 ## Problem
-The chatbot works fine locally but throws "Error: Failed to fetch" when deployed to Vercel.
+The chatbot works fine locally but throws "Error: Failed to fetch" or "Unable to connect to the backend. The server might be temporarily unavailable. Please try again in a moment." when deployed to Vercel.
 
 ## Root Causes & Solutions
 
@@ -25,15 +25,54 @@ Railway free tier dynos go to sleep after inactivity, which can cause timeout is
 - Improved error messages to help diagnose sleep/wake issues
 - Created a keep-alive script to ping the backend periodically
 
+### 4. Backend Startup/Dependency Issues
+The backend might have issues starting up or connecting to required services (Cohere, Qdrant, etc.) in the Railway environment.
+
+**Additional Checks Needed:**
+- Verify all required environment variables are set in Railway dashboard
+- Check Railway logs for any startup errors
+- Ensure all dependencies are properly defined in requirements.txt
+
 ## Deployment Steps
 
 ### Backend (Railway)
 1. Commit and push the updated backend code with the new CORS configuration
-2. Redeploy your Railway backend
+2. Verify all required environment variables are set in Railway dashboard:
+   - COHERE_API_KEY
+   - QDRANT_API_KEY
+   - QDRANT_URL
+   - OPENAI_API_KEY (if needed)
+3. Redeploy your Railway backend
+4. Check Railway logs for any errors after deployment
 
 ### Frontend (Vercel)
 1. Commit and push the updated frontend code with the fixed configuration
 2. Redeploy your Vercel frontend
+
+## Troubleshooting Steps
+
+### 1. Check Backend Status
+Run the test script to verify backend connectivity:
+```bash
+node test-backend-connection.js
+```
+
+### 2. Check Railway Logs
+1. Go to your Railway dashboard
+2. Select your backend project
+3. Check the logs for any error messages during startup or when receiving requests
+
+### 3. Verify Environment Variables
+Make sure these environment variables are set in your Railway dashboard:
+- COHERE_API_KEY
+- QDRANT_API_KEY
+- QDRANT_URL
+- OPENAI_API_KEY (if needed)
+
+### 4. Test Backend Endpoints Directly
+Try accessing these endpoints directly in your browser or using curl:
+- `https://physical-ai-humanoid-robotics-essentials-production.up.railway.app/health`
+- `https://physical-ai-humanoid-robotics-essentials-production.up.railway.app/`
 
 ## Optional: Keep Backend Awake
 To prevent the Railway backend from sleeping (which causes slow first responses), you can run the keep-alive script:
@@ -45,4 +84,4 @@ node keep-backend-alive.js
 Or set up a cron job or scheduled task to periodically ping the backend's health endpoint.
 
 ## Testing
-After redeployment, the chatbot should work correctly on your Vercel deployment without the "Failed to fetch" error.
+After redeployment and verification, the chatbot should work correctly on your Vercel deployment without the connection errors.

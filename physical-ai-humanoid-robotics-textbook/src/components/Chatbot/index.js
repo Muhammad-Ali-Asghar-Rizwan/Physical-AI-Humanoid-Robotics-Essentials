@@ -88,6 +88,13 @@ function Chatbot({ selectedTextFromPage }) {
         errText = `Error: ${error.message}`;
       }
 
+      // Add debugging information for deployed version
+      if (process.env.NODE_ENV === 'production') {
+        console.log('Production environment detected');
+        console.log('Backend API URL:', BACKEND_API_URL);
+        console.log('Sending request to:', `${BACKEND_API_URL}/query`);
+      }
+
       const errorMessage = { id: messages.length + 2, text: errText, sender: 'bot' };
       setMessages((prevMessages) => [...prevMessages, errorMessage]);
     } finally {
