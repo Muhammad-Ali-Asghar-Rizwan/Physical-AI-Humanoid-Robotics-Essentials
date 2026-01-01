@@ -22,21 +22,21 @@ except Exception as e:
     llm_client = None
 
 # Refusal messages
-REFUSAL_EN = "I'm sorry, I can only answer questions related to the textbook content."
-REFUSAL_UR = "Maaf kijiye, mein sirf textbook ke content se related sawalon ka jawab de sakta hoon."
+REFUSAL_EN = "Hello! I am a chatbot for the Physical-AI-Humanoid-Robotics-Essentials book. I can help you with questions related to this textbook content only."
+REFUSAL_UR = "Assalam Walaikum! Main Physical-AI-Humanoid-Robotics-Essentials book ke liye ek chatbot hoon. Main sirf is textbook ke content se related sawalon ka jawab de sakta hoon."
 
 def _format_rag_only_response(context_chunks: List[str], source_references: List[str]) -> Dict[str, Any]:
     """Formats the RAG context into a user-friendly response when the LLM fails."""
     if not context_chunks:
         return {
-            "answer": "No relevant context found in the book.",
-            "detailed_answer": "No relevant context was found to answer your question. Please try rephrasing or selecting different text.",
+            "answer": "Answer not found in the book. Please try rephrasing your question.",
+            "detailed_answer": "No relevant content was found in the textbook to answer your question.",
             "sources": []
         }
-        
+
     # Combine and format the retrieved chunks as the main answer
     formatted_answer = "Here is the most relevant information found in the textbook:\n\n" + "\n\n---\n\n".join(context_chunks)
-    
+
     unique_sources = sorted(list(set(source_references)))
 
     return {
@@ -110,9 +110,11 @@ def generate_rag_response(question: str, context_chunks: List[str], source_refer
         # Format the prompt for the LLM
         formatted_context = "\n\n".join(context_chunks)
         system_message = (
-            "You are a helpful assistant for a Humanoid Robotics textbook. Answer questions strictly from the provided context. "
+            "You are a helpful assistant for the Physical AI-Native Robotics Textbook. Your name is 'Physical: AI-Native Robotics Textbook'. "
+            "Answer questions strictly from the provided context. "
             "If the answer is not in the context, say 'Answer not found in the book.' "
             "Provide a concise summary first, then a detailed answer with citations. "
+            "Always remember to identify yourself as 'Physical: AI-Native Robotics Textbook' in your responses. "
             f"Respond in {'Roman Urdu' if lang == 'ur' else 'English'}."
         )
         user_message = f"Context from the book:\n{formatted_context}\n\nQuestion: {question}"
