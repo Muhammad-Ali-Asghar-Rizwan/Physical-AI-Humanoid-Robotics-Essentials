@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import logging
+import hashlib
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -33,6 +34,13 @@ try:
     logger.info("Successfully imported generate_rag_response")
 except Exception as e:
     logger.error(f"Error importing generate_rag_response: {e}")
+    raise e
+
+try:
+    from .utils.cache import query_cache
+    logger.info("Successfully imported query cache")
+except Exception as e:
+    logger.error(f"Error importing query cache: {e}")
     raise e
 
 app = FastAPI()
@@ -134,13 +142,27 @@ def query_chatbot(request: QueryRequest):
         if not request.question:
             raise HTTPException(status_code=400, detail="Question cannot be empty.")
 
-        # Check if required services are available
-        if cohere_client is None:
-            raise HTTPException(status_code=503, detail="Cohere service is not available. Check if COHERE_API_KEY is set.")
-
+        # Create a cache key based on the question and selected text
         query_text = request.question
         if request.selected_text:
             query_text = f"{request.selected_text}\n\nQuestion: {request.question}"
+
+        # Create a hash of the query text to use as cache key
+        cache_key = hashlib.md5(query_text.encode()).hexdigest()
+
+        # Check if result is already in cache
+        cached_result = query_cache.get(cache_key)
+        if cached_result:
+            logger.info("Returning cached result for query")
+            return QueryResponse(
+                answer=cached_result["answer"],
+                detailed_answer=cached_result["detailed_answer"],
+                source_references=cached_result["source_references"]
+            )
+
+        # Check if required services are available
+        if cohere_client is None:
+            raise HTTPException(status_code=503, detail="Cohere service is not available. Check if COHERE_API_KEY is set.")
 
         # Generate embedding for the query
         try:
@@ -152,7 +174,12 @@ def query_chatbot(request: QueryRequest):
             query_embedding = query_embedding_response.embeddings[0]
         except Exception as embed_error:
             logger.error(f"Embedding generation failed: {embed_error}")
-            raise HTTPException(status_code=500, detail=f"Embedding generation failed: {embed_error}")
+            # Check if it's a rate limit error
+            error_str = str(embed_error)
+            if "429" in error_str or "rate limit" in error_str.lower() or "Too Many Requests" in error_str:
+                raise HTTPException(status_code=429, detail="Rate limit exceeded. Please try again later.")
+            else:
+                raise HTTPException(status_code=500, detail=f"Embedding generation failed: {embed_error}")
 
         # Perform similarity search in Qdrant
         retrieved_chunks = search_qdrant(query_embedding)
@@ -168,6 +195,14 @@ def query_chatbot(request: QueryRequest):
             detailed_answer=llm_response["detailed_answer"],
             source_references=llm_response["sources"]
         )
+
+        # Cache the result for future requests
+        query_cache.set(cache_key, {
+            "answer": llm_response["answer"],
+            "detailed_answer": llm_response["detailed_answer"],
+            "source_references": llm_response["sources"]
+        })
+
         return response
     except HTTPException:
         # Re-raise HTTP exceptions as-is
