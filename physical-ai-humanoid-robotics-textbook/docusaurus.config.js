@@ -22,7 +22,7 @@ const config = {
     backendApiUrl: process.env.DOCUSAURUS_RAILWAY_BACKEND_URL ||
                   (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 'development'
                    ? 'http://localhost:8000'
-                   : 'https://physical-ai-humanoid-robotics-essentials-production.up.railway.app/'),
+                   : 'https://physical-ai-humanoid-robotics-essentials-production.up.railway.app'),
   },
 
   baseUrl: '/',

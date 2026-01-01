@@ -1,10 +1,10 @@
 // Temporary proxy solution for CORS issues
 // This should only be used temporarily until the main backend is fixed
 
-const BACKEND_API_URL = process.env.REACT_APP_BACKEND_URL || 
-  (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 'development' 
-   ? 'http://localhost:8000' 
-   : 'https://physical-ai-humanoid-robotics-essentials-production.up.railway.app/');
+const BACKEND_API_URL = process.env.REACT_APP_BACKEND_URL ||
+  (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 'development'
+   ? 'http://localhost:8000'
+   : 'https://physical-ai-humanoid-robotics-essentials-production.up.railway.app');
 
 // Use a CORS proxy as a temporary solution
 const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/';
